@@ -27,6 +27,13 @@ def main(input_filepath, output_filepath):
             content.append(np.load(os.path.join(input_filepath, filename)))
         data = torch.tensor(np.concatenate([c['images'] for c in content])).reshape(-1, 1, 28, 28)
         target = torch.tensor(np.concatenate([c['labels'] for c in content]))
+        # normalize using training set statistics
+        if which == 'train':
+            mean = data.mean((0, 2, 3), keepdim=True)
+            std = data.std((0, 2, 3), keepdim=True)
+        data = (data - mean)/std
+        # cast to single precision float
+        data = data.float()
         outpath = os.path.join(output_filepath, f'{which}.pt')
         torch.save({
             'data': data,
@@ -58,7 +65,7 @@ def build_filenames(which='all'):
     elif which == 'test':
         output = test_filenames
     else:
-        return ValueError(f'which must be train, test or all, gor {which}')
+        return ValueError(f'which must be train, test or all, got {which}')
     return output
 
 
