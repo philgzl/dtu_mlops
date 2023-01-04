@@ -44,21 +44,22 @@ def main(input_filepath, output_filepath):
 
 def download_data(input_filepath):
     logger = logging.getLogger(__name__)
-    files = os.listdir(input_filepath)
     filenames = build_filenames()
     for filename in filenames:
-        if filename not in files:
-            url = f'https://github.com/SkafteNicki/dtu_mlops/raw/main/data/corruptmnist/{filename}'
+        filepath = os.path.join(input_filepath, filename)
+        if not os.path.exists(filepath):
+            url = f'https://github.com/SkafteNicki/dtu_mlops/raw/main/data/{filepath}'
             logger.info(f'downloading {url}')
-            wget.download(url, out=input_filepath)
+            wget.download(url, out=filepath)
             sys.stdout.write('\n')
         else:
             logger.info(f'{filename} already downloaded')
 
 
 def build_filenames(which='all'):
-    train_filenames = [f'train_{file_idx}.npz' for file_idx in range(5)]
-    test_filenames = ["test.npz"]
+    train_filenames = [f'corruptmnist/train_{i}.npz' for i in range(5)]
+    train_filenames += [f'corruptmnist_v2/train_{i+5}.npz' for i in range(3)]
+    test_filenames = ["corruptmnist/test.npz"]
     if which == 'all':
         output = train_filenames + test_filenames
     elif which == 'train':
