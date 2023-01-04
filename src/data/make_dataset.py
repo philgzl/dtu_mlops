@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+import logging
 import os
 import sys
-import wget
-import click
-import logging
 from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
+
+import click
 import numpy as np
 import torch
+import wget
+from dotenv import find_dotenv, load_dotenv
 
 
 @click.command()

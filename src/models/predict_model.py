@@ -3,8 +3,8 @@ import logging
 import click
 import torch
 
-from model import MyAwesomeModel
-from dataset import MyDataset
+from src.models.dataset import MyDataset
+from src.models.model import MyAwesomeModel
 
 
 @click.command()

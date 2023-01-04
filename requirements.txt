@@ -13,6 +13,7 @@ torch
 matplotlib
 scikit-learn
 seaborn
+isort
 
 
 # backwards compatibility

@@ -1,12 +1,12 @@
-import os
 import logging
+import os
 
 import click
-import torch
 import matplotlib.pyplot as plt
+import torch
 
-from model import MyAwesomeModel
-from dataset import MyDataset
+from src.models.dataset import MyDataset
+from src.models.model import MyAwesomeModel
 
 
 @click.command(context_settings={'show_default': True})

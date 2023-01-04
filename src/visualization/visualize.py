@@ -2,14 +2,14 @@ import logging
 import random
 
 import click
+import matplotlib.pyplot as plt
+import seaborn as sns
 import torch
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
-import matplotlib.pyplot as plt
-import seaborn as sns
 
-from src.models.model import MyAwesomeModel
 from src.models.dataset import MyDataset
+from src.models.model import MyAwesomeModel
 
 
 @click.command()
