@@ -14,7 +14,8 @@ matplotlib
 scikit-learn
 seaborn
 isort
-
+dvc
+dvc[gdrive]
 
 # backwards compatibility
 pathlib2
