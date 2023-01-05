@@ -10,12 +10,16 @@ python-dotenv>=0.5.1
 wget
 numpy
 torch
+torchvision
 matplotlib
 scikit-learn
 seaborn
 isort
 dvc
 dvc[gdrive]
+torch_tb_profiler
+tensorboard
+wandb
 
 # backwards compatibility
 pathlib2
