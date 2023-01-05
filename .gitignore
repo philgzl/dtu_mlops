@@ -94,3 +94,9 @@ models/*.png
 
 # report figures
 reports/figures/*.png
+
+# wandb stuff
+wandb/
+
+# logs
+log/
