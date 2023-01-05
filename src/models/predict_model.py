@@ -2,6 +2,7 @@ import logging
 
 import click
 import torch
+import wandb
 
 from src.models.dataset import MyDataset
 from src.models.model import MyAwesomeModel
@@ -10,8 +11,12 @@ from src.models.model import MyAwesomeModel
 @click.command()
 @click.argument('model_checkpoint', type=click.Path(exists=True))
 @click.argument('test_set', type=click.Path(exists=True))
-def main(model_checkpoint, test_set):
+@click.option("--wandb", "wandb_log", is_flag=True)
+def main(model_checkpoint, test_set, wandb_log):
     logger = logging.getLogger(__name__)
+
+    if wandb_log:
+        wandb.init()
 
     logger.info('loading model')
     model = MyAwesomeModel()
@@ -28,6 +33,15 @@ def main(model_checkpoint, test_set):
     acc = torch.sum(output == target)/len(output)
 
     logger.info(f'accuracy: {acc:.2f}')
+
+    if wandb_log:
+        columns = ["id", "image", "guess", "truth"]
+        data = [
+            [i, wandb.Image(input_[i]), output[i], target[i]]
+            for i in range(len(dataset))
+        ]
+        table = wandb.Table(data=data, columns=columns)
+        wandb.log({'prediction_table': table})
 
 
 if __name__ == '__main__':
